@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { projectsQuery } from "@/lib/sanity.query";
 import type { ProjectType } from "@/types";
-import EmptyState from "../components/shared/EmptyState";
-import { Slide } from "../animation/Slide";
+import EmptyState from "./components/shared/EmptyState";
+import { Slide } from "./animation/Slide";
 import { sanityFetch } from "@/lib/sanity.client";
-import PageHeading from "../components/shared/PageHeading";
+import PageHeading from "./components/shared/PageHeading";
 
 export const metadata: Metadata = {
   title: "Projects | Prasidh P Shetty",
@@ -22,10 +22,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Project() {
-  const projects: ProjectType[] = await sanityFetch({
-    query: projectsQuery,
-    tags: ["project"],
-  });
+  // Temporarily bypass Sanity to show the portfolio structure
+  const projects: ProjectType[] = [];
 
   return (
     <main className="max-w-7xl mx-auto md:px-16 px-6">
