@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
 import Social from "./components/shared/Social";
+import GitHubGraph from "./components/pages/GitHubGraph";
 
 export const metadata: Metadata = {
   title: "Prasidh P Shetty | Web Designer & Full-Stack Developer",
@@ -73,29 +74,11 @@ export default function Home() {
             Contribution Graph
           </h2>
           <p className="dark:text-zinc-400 text-zinc-600 max-w-2xl">
-            My GitHub contribution activity for username: <span className="font-mono text-blue-500">Prasidhpshetty7</span>
+            My GitHub contribution activity for <span className="font-mono text-blue-500">@Prasidhpshetty7</span>
           </p>
         </div>
         
-        {/* Import and use the actual GitHub Calendar component */}
-        <div className="dark:bg-primary-bg bg-secondary-bg border dark:border-zinc-800 border-zinc-200 p-8 rounded-lg">
-          <iframe
-            src={`https://github-readme-stats.vercel.app/api?username=Prasidhpshetty7&show_icons=true&theme=radical`}
-            width="100%"
-            height="195"
-            frameBorder="0"
-            className="mb-6"
-          />
-          <iframe
-            src={`https://github-readme-streak-stats.herokuapp.com/?user=Prasidhpshetty7&theme=radical`}
-            width="100%"
-            height="195"
-            frameBorder="0"
-          />
-          <p className="text-sm dark:text-zinc-500 text-zinc-500 mt-6 text-center">
-            GitHub stats powered by github-readme-stats
-          </p>
-        </div>
+        <GitHubGraph />
       </section>
     </main>
   );
