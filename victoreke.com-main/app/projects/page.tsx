@@ -1,12 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
 import { Metadata } from "next";
-import { projectsQuery } from "@/lib/sanity.query";
-import type { ProjectType } from "@/types";
-import EmptyState from "../components/shared/EmptyState";
 import { Slide } from "../animation/Slide";
-import { sanityFetch } from "@/lib/sanity.client";
 import PageHeading from "../components/shared/PageHeading";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Projects | Prasidh P Shetty",
@@ -22,11 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Project() {
-  const projects: ProjectType[] = await sanityFetch({
-    query: projectsQuery,
-    tags: ["project"],
-  });
-
   return (
     <main className="max-w-7xl mx-auto md:px-16 px-6">
       <PageHeading
@@ -35,39 +25,34 @@ export default async function Project() {
       />
 
       <Slide delay={0.1}>
-        {projects.length > 0 ? (
-          <section className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mb-12">
-            {projects.map((project) => (
-              <Link
-                href={`/projects/${project.slug}`}
-                key={project._id}
-                className="flex items-center gap-x-4 dark:bg-primary-bg bg-zinc-50 border border-transparent dark:hover:border-zinc-700 hover:border-zinc-200 p-4 rounded-lg"
-              >
-                {project.logo ? (
-                  <Image
-                    src={project.logo}
-                    width={60}
-                    height={60}
-                    alt={project.name}
-                    className="dark:bg-zinc-800 bg-zinc-100 rounded-md p-2"
-                  />
-                ) : (
-                  <div className="dark:bg-primary-bg bg-zinc-50 border border-transparent dark:hover:border-zinc-700 hover:border-zinc-200 p-2 rounded-lg text-3xl">
-                    🪴
-                  </div>
-                )}
-                <div>
-                  <h2 className="text-lg tracking-wide mb-1">{project.name}</h2>
-                  <div className="text-sm dark:text-zinc-400 text-zinc-600">
-                    {project.tagline}
-                  </div>
+        <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mb-12">
+          {/* Placeholder Project Cards */}
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={i}
+              className="flex flex-col gap-y-4 dark:bg-primary-bg bg-zinc-50 border dark:border-zinc-800 border-zinc-200 p-6 rounded-lg"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-md flex items-center justify-center text-white text-2xl">
+                🚀
+              </div>
+              <div>
+                <h2 className="text-lg tracking-wide mb-1 font-semibold">Project {i}</h2>
+                <div className="text-sm dark:text-zinc-400 text-zinc-600">
+                  Add your projects via Sanity CMS
                 </div>
-              </Link>
-            ))}
-          </section>
-        ) : (
-          <EmptyState value="Projects" />
-        )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center p-8 dark:bg-zinc-800/50 bg-zinc-100 rounded-lg border dark:border-zinc-700 border-zinc-200">
+          <p className="dark:text-zinc-400 text-zinc-600 mb-4">
+            <strong>No projects added yet.</strong> Add your portfolio projects through Sanity CMS to showcase your work!
+          </p>
+          <p className="text-sm dark:text-zinc-500 text-zinc-500">
+            Projects can include live URLs, GitHub repos, tech stacks, and detailed descriptions.
+          </p>
+        </div>
       </Slide>
     </main>
   );
