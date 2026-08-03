@@ -8,6 +8,7 @@ import { Slide } from "../../animation/Slide";
 import { urlFor } from "@/lib/sanity.image";
 import { sanityFetch } from "@/lib/sanity.client";
 import { BiLinkExternal, BiLogoGithub } from "react-icons/bi";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
@@ -18,37 +19,59 @@ type Props = {
 const fallbackImage: string =
   "https://res.cloudinary.com/victoreke/image/upload/v1692636087/victoreke/projects.png";
 
+// Force dynamic rendering to avoid build-time Sanity calls
+export const dynamic = 'force-dynamic';
+
 // Dynamic metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.project;
-  const project: ProjectType = await sanityFetch({
-    query: singleProjectQuery,
-    tags: ["project"],
-    qParams: { slug },
-  });
+  
+  try {
+    const project: ProjectType = await sanityFetch({
+      query: singleProjectQuery,
+      tags: ["project"],
+      qParams: { slug },
+    });
 
-  return {
-    title: `${project.name} | Project`,
-    metadataBase: new URL(`https://prasidhpshetty.com/projects/${project.slug}`),
-    description: project.tagline,
-    openGraph: {
-      images: project.coverImage
-        ? urlFor(project.coverImage.image).width(1200).height(630).url()
-        : fallbackImage,
-      url: `https://prasidhpshetty.com/projects/${project.slug}`,
-      title: project.name,
+    return {
+      title: `${project.name} | Project`,
+      metadataBase: new URL(`https://prasidhpshetty.com/projects/${project.slug}`),
       description: project.tagline,
-    },
-  };
+      openGraph: {
+        images: project.coverImage
+          ? urlFor(project.coverImage.image).width(1200).height(630).url()
+          : fallbackImage,
+        url: `https://prasidhpshetty.com/projects/${project.slug}`,
+        title: project.name,
+        description: project.tagline,
+      },
+    };
+  } catch (error) {
+    return {
+      title: `Project | Prasidh P Shetty`,
+      metadataBase: new URL(`https://prasidhpshetty.com/projects/${slug}`),
+      description: "Project details",
+    };
+  }
 }
 
 export default async function Project({ params }: Props) {
   const slug = params.project;
-  const project: ProjectType = await sanityFetch({
-    query: singleProjectQuery,
-    tags: ["project"],
-    qParams: { slug },
-  });
+  
+  let project: ProjectType;
+  try {
+    project = await sanityFetch({
+      query: singleProjectQuery,
+      tags: ["project"],
+      qParams: { slug },
+    });
+  } catch (error) {
+    notFound();
+  }
+
+  if (!project) {
+    notFound();
+  }
 
   return (
     <main className="max-w-6xl mx-auto lg:px-16 px-8">
