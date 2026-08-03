@@ -19,6 +19,9 @@ import { sanityFetch } from "@/lib/sanity.client";
 import { readTime } from "@/app/utils/readTime";
 import PageHeading from "@/app/components/shared/PageHeading";
 
+// Force dynamic rendering to avoid build-time Sanity calls
+export const dynamic = 'force-dynamic';
+
 type Props = {
   params: {
     post: string;
