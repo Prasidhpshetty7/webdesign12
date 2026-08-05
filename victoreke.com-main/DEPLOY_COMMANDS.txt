@@ -1,0 +1,37 @@
+===== COPY AND PASTE THESE COMMANDS INTO POWERSHELL =====
+
+STEP 1: Open PowerShell (Windows Key + X, then click "Windows PowerShell")
+
+STEP 2: Copy and paste this command:
+
+cd "C:\Users\PRASIDH P SHETTY\Downloads\victoreke.com-main\webdesign12\victoreke.com-main"
+
+STEP 3: Copy and paste this command:
+
+$env:PATH = "C:\Program Files\nodejs;$env:PATH"
+
+STEP 4: Copy and paste this command:
+
+vercel --prod
+
+STEP 5: Answer the questions:
+- "Set up and deploy?" → Type Y and press Enter
+- "Which scope?" → Choose your account (use arrow keys)
+- "Link to existing project?" → Type N and press Enter  
+- "What's your project's name?" → Type prasidhpshetty and press Enter
+- "In which directory is your code located?" → Just press Enter
+- "Want to modify these settings?" → Type N and press Enter
+
+STEP 6: Wait for deployment (1-2 minutes)
+
+STEP 7: You'll get a URL - copy it and open in browser!
+
+========================================
+
+If you get "vercel: command not found", first run:
+
+npm install -g vercel
+
+Then try again from STEP 4.
+
+========================================
