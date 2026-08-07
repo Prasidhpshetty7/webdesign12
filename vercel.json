@@ -1,7 +1,6 @@
 {
-  "buildCommand": "cd victoreke.com-main && npm install && npm run build",
-  "devCommand": "cd victoreke.com-main && npm run dev",
-  "installCommand": "cd victoreke.com-main && npm install",
   "framework": "nextjs",
-  "outputDirectory": "victoreke.com-main/.next"
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install"
 }
